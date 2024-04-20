@@ -49,8 +49,8 @@ jobs:
                 port: ${{ secrets.SERVER_PORT }}
                 
                 script: |
-                  docker pull ${{ secrets.DOCKER_USERNAME }}/mearn-stack_frontend:latest
-                  docker pull ${{ secrets.DOCKER_USERNAME }}/mearn-stack_backend:latest
+                  docker pull stt96/mearn-stack_frontend:latest
+                  docker pull stt96/mearn-stack_backend:latest
                   # docker stop mearn-stack_frontend || true
                   docker rm -f mearn-stack_frontend || true
                   # docker stop mearn-stack_backend || true
@@ -59,8 +59,8 @@ jobs:
                   docker rmi -f ${{ secrets.DOCKER_USERNAME }}/mearn-stack_frontend:latest || true
                   docker rmi -f ${{ secrets.DOCKER_USERNAME }}/mearn-stack_backend:latest || true
                   
-                  docker run -d -p 8000:8000 --name ${{ secrets.DOCKER_USERNAME }}/mearn-stack_backend:latest
-                  docker run -d -p 5173:5173 --name mearn-stack_frontend ${{ secrets.DOCKER_USERNAME }}/mearn-stack_frontend:latest
+                  docker run -d -p 8000:8000 --name mearn-stack_backend ${{ secrets.DOCKER_USERNAME }}/mearn-stack_backend:latest
+                  docker run -d -p 5000:5000 --name mearn-stack_frontend ${{ secrets.DOCKER_USERNAME }}/mearn-stack_frontend:latest
           
           # - name: Pull Frontend Docker Image
           #   run: sudo docker pull stt96/mearn-stack_frontend:latest
@@ -75,7 +75,7 @@ jobs:
           #   run: docker rm -f mearn-stack_frontend-container  
           
           # - name: Deploy Frontend Docker Image
-          #   run: sudo docker run -d -p 5173:5173 stt96/mearn-stack_frontend:latest
+          #   run: sudo docker run -d -p 5000:5000 stt96/mearn-stack_frontend:latest
           
           # - name: Deploy Backend Docker Image
           #   run: sudo docker run -d -p 8000:8000 stt96/mearn-stack_backend:latest
@@ -107,7 +107,7 @@ jobs:
           # #   run: docker rm -f mearn-stack_frontend-container  
           
           # - name: Deploy Frontend Docker Image
-          #   run: sudo docker run -d -p 5173:5173 stt96/mearn-stack_frontend:latest
+          #   run: sudo docker run -d -p 5000:5000 stt96/mearn-stack_frontend:latest
           
           # - name: Deploy Backend Docker Image
           #   run: sudo docker run -d -p 8000:8000 stt96/mearn-stack_backend:latest
