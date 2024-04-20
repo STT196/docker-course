@@ -112,28 +112,20 @@ jobs:
           docker save -o frontend.tar ${{ secrets.DOCKER_USERNAME }}/mearn-stack_frontend:latest
           docker save -o backend.tar ${{ secrets.DOCKER_USERNAME }}/mearn-stack_backend:latest
           docker save -o appew.tar ${{ secrets.DOCKER_USERNAME }}/mearn-stack_appew:latest
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
+     
+  
       - name: Download Docker Images Tar Archives
-        uses: appleboy/rsync-action@master
-        with:
-          src: |
-            frontend.tar
-            backend.tar
-            appew.tar
-          dest: ${{ secrets.SERVER_USERNAME_ROOT }}@${{ secrets.SERVER_HOST }}:/home/wap-admin/docker/mearn
-          port: ${{ secrets.SERVER_PORT }}
-          password: ${{ secrets.SERVER_PASSWORD_ROOT }}
-
+          run: |
+            scp -i ${{ secrets.SERVER_PASSWORD_ROOT }} frontend.tar ${{ secrets.SERVER_USERNAME_ROOT }}@${{ secrets.SERVER_HOST }}:/home/wap-admin/docker/mearn
+            scp -i ${{ secrets.SERVER_PASSWORD_ROOT }} backend.tar ${{ secrets.SERVER_USERNAME_ROOT }}@${{ secrets.SERVER_HOST }}:/home/wap-admin/docker/mearn
+            scp -i ${{ secrets.SERVER_PASSWORD_ROOT }} appew.tar ${{ secrets.SERVER_USERNAME_ROOT }}@${{ secrets.SERVER_HOST }}:/home/wap-admin/docker/mearn
+      
       - name: SSH into Server instance and deploy
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USERNAME }}
-          password: ${{ secrets.SERVER_PASSWORD }}
+          username: ${{ secrets.SERVER_USERNAME_ROOT }}
+          password: ${{ secrets.SERVER_PASSWORD_ROOT }}
           port: ${{ secrets.SERVER_PORT }}
           script: |
             # Run your Docker containers here
@@ -146,10 +138,10 @@ jobs:
             docker rm -f mearn-stack_appew || true
 
             # Load Docker images from saved tar archives
-            docker load -i /path/to/destination/frontend.tar
-            docker load -i /path/to/destination/backend.tar
-            docker load -i /path/to/destination/appew.tar
-            
+            docker load -i /home/wap-admin/docker/mearn/frontend.tar
+            docker load -i /home/wap-admin/docker/mearn/backend.tar
+            docker load -i /home/wap-admin/docker/mearn/appew.tar
+
             docker system prune -f
 
             docker run -d -p 5174:4000 --name mearn-stack_appew ${{ secrets.DOCKER_USERNAME }}/mearn-stack_appew:latest
