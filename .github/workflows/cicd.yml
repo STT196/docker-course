@@ -45,14 +45,12 @@ jobs:
           #   docker push ${{ secrets.SERVER_HOST }}/frontend:latest
           #   docker push ${{ secrets.SERVER_HOST }}/backend:latest
           script: |
-                if ! docker images frontend:latest | grep -q frontend; then
-                  docker tag frontend:latest ${{ secrets.SERVER_HOST }}/frontend:latest
-                  docker push ${{ secrets.SERVER_HOST }}/frontend:latest
-                fi
-                if ! docker images backend:latest | grep -q backend; then
-                  docker tag backend:latest ${{ secrets.SERVER_HOST }}/backend:latest
-                  docker push ${{ secrets.SERVER_HOST }}/backend:latest
-                fi
+            if ! docker images frontend:latest | grep -q frontend; then
+              docker pull your-registry/frontend:latest
+            fi
+            if ! docker images backend:latest | grep -q backend; then
+              docker pull your-registry/backend:latest
+            fi
 
 
 # name: My Workflow
