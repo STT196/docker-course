@@ -123,17 +123,17 @@ jobs:
       #       # your 
       #       # commands
       #       # here
-      - name: Download Docker Images Tar Archives
-        # uses: matheusvanzan/sshpass-action@v2
-        # with:
-        #   pass: ${{ secrets.SERVER_PASS_ROOT }}
-        run: |
-          # scp -r ${{ secrets.SERVER_USERNAME_ROOT }}@${{ secrets.SERVER_HOST }}:/home/wap-admin/docker/mearn appew.tar
-          # scp -r ${{ secrets.SERVER_USERNAME_ROOT }}@${{ secrets.SERVER_HOST }}:/home/wap-admin/docker/mearn backend.tar
-          # scp -r ${{ secrets.SERVER_USERNAME_ROOT }}@${{ secrets.SERVER_HOST }}:/home/wap-admin/docker/mearn frontend.tar
+      # - name: Download Docker Images Tar Archives
+      #   # uses: matheusvanzan/sshpass-action@v2
+      #   # with:
+      #   #   pass: ${{ secrets.SERVER_PASS_ROOT }}
+      #   run: |
+      #     # scp -r ${{ secrets.SERVER_USERNAME_ROOT }}@${{ secrets.SERVER_HOST }}:/home/wap-admin/docker/mearn appew.tar
+      #     # scp -r ${{ secrets.SERVER_USERNAME_ROOT }}@${{ secrets.SERVER_HOST }}:/home/wap-admin/docker/mearn backend.tar
+      #     # scp -r ${{ secrets.SERVER_USERNAME_ROOT }}@${{ secrets.SERVER_HOST }}:/home/wap-admin/docker/mearn frontend.tar
           
-          # scp -r ${{ secrets.SERVER_PASSWORD_ROOT }} appew.tar ${{ secrets.SERVER_USERNAME_ROOT }}@${{ secrets.SERVER_HOST }}:/home/wap-admin/docker/mearn
-          scp -i "${{ secrets.SSH_PRIVATE_KEY_ROOT }}" appew.tar ${{ secrets.SERVER_USERNAME_ROOT }}@${{ secrets.SERVER_HOST }}:/home/wap-admin/docker/mearn
+      #     # scp -r ${{ secrets.SERVER_PASSWORD_ROOT }} appew.tar ${{ secrets.SERVER_USERNAME_ROOT }}@${{ secrets.SERVER_HOST }}:/home/wap-admin/docker/mearn
+      #     scp -i "${{ secrets.SSH_PRIVATE_KEY_ROOT }}" appew.tar ${{ secrets.SERVER_USERNAME_ROOT }}@${{ secrets.SERVER_HOST }}:/home/wap-admin/docker/mearn
   # deploy:
   #   runs-on: ubuntu-latest   
   #   needs: build 
@@ -167,4 +167,21 @@ jobs:
   #           docker run -d -p 8000:8000 --name mearn-stack_backend ${{ secrets.DOCKER_USERNAME }}/mearn-stack_backend:latest
   #           docker run -d -p 5173:5173 --name mearn-stack_frontend ${{ secrets.DOCKER_USERNAME }}/mearn-stack_frontend:latest
 
+      - name: Copy SSH key to server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ runner.home }}/id_rsa
+          src: ${{ runner.home }}/.ssh/id_rsa.pub
+          dest: ~/.ssh/authorized_keys
 
+      - name: SSH into Server instance and deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ runner.home }}/id_rsa
+          port: ${{ secrets.SERVER_PORT }}
+          script: | 
+            echo "SSH into Server instance and deploy"
