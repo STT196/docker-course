@@ -58,14 +58,12 @@ jobs:
           
           - name: Pull Backend Docker Image
             run: docker pull stt96/mearn-stack_backend:latest
-            
-          - name: Delete Old Backend Docker Image
-            run: docker pull mearn-stack_backend-container
 
-          - name: Delete Old Frontend Docker Image
-            run: docker rm -f mearn-stack_frontend-container
-          
-            
+          # - name: Delete Old Backend Docker Image
+          #   run: docker pull mearn-stack_backend-container
+
+          # - name: Delete Old Frontend Docker Image
+          #   run: docker rm -f mearn-stack_frontend-container  
           
           - name: Deploy Frontend Docker Image
             run: docker run -d -p 3000:3000 ${{ secrets.DOCKER_USERNAME }}/mearn-stack_frontend
