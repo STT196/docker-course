@@ -109,8 +109,8 @@ jobs:
           
       - name: Save Docker Images as Tar Archives
         run: |
-          docker save -o frontend.tar ${{ secrets.DOCKER_USERNAME }}/mearn-stack_frontend:latest
-          docker save -o backend.tar ${{ secrets.DOCKER_USERNAME }}/mearn-stack_backend:latest
+          # docker save -o frontend.tar ${{ secrets.DOCKER_USERNAME }}/mearn-stack_frontend:latest
+          # docker save -o backend.tar ${{ secrets.DOCKER_USERNAME }}/mearn-stack_backend:latest
           docker save -o appew.tar ${{ secrets.DOCKER_USERNAME }}/mearn-stack_appew:latest
 
       - name: Download Docker Images Tar Archives
