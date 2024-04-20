@@ -51,7 +51,9 @@ jobs:
                 script: |
                   sudo docker pull ${{ secrets.DOCKER_USERNAME }}/mearn-stack_frontend:latest
                   sudo docker pull ${{ secrets.DOCKER_USERNAME }}/mearn-stack_backend:latest
+                  sudo docker stop mearn-stack_frontend || true
                   sudo docker rm mearn-stack_frontend || true
+                  sudo docker stop mearn-stack_backend || true
                   sudo docker rm mearn-stack_backend || true
                   sudo docker run -d -p 5000:5000 --name mearn-stack_backend ${{ secrets.DOCKER_USERNAME }}/mearn-stack_backend:latest
                   docker run -d -p 3000:3000 --name mearn-stack_frontend ${{ secrets.DOCKER_USERNAME }}/mearn-stack_frontend:latest
