@@ -30,10 +30,10 @@ jobs:
               password: ${{ secrets.DOCKER_PASSWORD }}
           
           - name: Push Frontend Docker Image
-            run: docker push stt96/mearn-stack_frontend:leatest
+            run: docker push stt96/mearn-stack_frontend
           
           - name: Push Backend Docker Image
-            run: docker push stt96/mearn-stack_backend:leatest
+            run: docker push stt96/mearn-stack_backend
 
   # deploy:
   #   runs-on: ubuntu-latest
@@ -54,10 +54,10 @@ jobs:
               password: ${{ secrets.DOCKER_PASSWORD }}
           
           - name: Pull Frontend Docker Image
-            run: docker pull ${{ secrets.DOCKER_USERNAME }}/mearn-stack_frontend:leatest
+            run: docker pull ${{ secrets.DOCKER_USERNAME }}/mearn-stack_frontend
           
           - name: Pull Backend Docker Image
-            run: docker pull ${{ secrets.DOCKER_USERNAME }}/mearn-stack_backend:leatest
+            run: docker pull ${{ secrets.DOCKER_USERNAME }}/mearn-stack_backend
 
           - name: Delete Old Frontend Docker Image
             run: docker rm -f mearn-stack_frontend-container
