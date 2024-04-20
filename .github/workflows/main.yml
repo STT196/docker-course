@@ -8,8 +8,18 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
+    container: docker:19.03.12
+
+    services:
+      docker:
+        image: docker:19.03.12
+        options: --privileged
+        ports:
+          - 2375:2375
+
     steps:
+      # Your workflow steps here
+
       - name: Checkout Repository
         uses: actions/checkout@v2
       
