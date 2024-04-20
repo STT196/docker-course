@@ -121,7 +121,8 @@ jobs:
           scp -i ${{ secrets.SERVER_PASSWORD_ROOT }} appew.tar ${{ secrets.SERVER_USERNAME_ROOT }}@${{ secrets.SERVER_HOST }}:/home/wap-admin/docker/mearn
   
   deploy:
-    runs-on: ubuntu-latest    
+    runs-on: ubuntu-latest   
+    needs: build 
     steps:    
       - name: SSH into Server instance and deploy
         uses: appleboy/ssh-action@master
