@@ -124,18 +124,18 @@ jobs:
  
       - name: Give Privilage
         uses: appleboy/ssh-action@master
-          with:
-              host: ${{ secrets.SERVER_HOST }}
-              username: ${{ secrets.SERVER_USERNAME }}
-              password: ${{ secrets.SERVER_PASSWORD }}
-              port: ${{ secrets.SERVER_PORT }}
-              
-          script: |
+        with:
+            host: ${{ secrets.SERVER_HOST }}
+            username: ${{ secrets.SERVER_USERNAME }}
+            password: ${{ secrets.SERVER_PASSWORD }}
+            port: ${{ secrets.SERVER_PORT }}
+            
+        script: |
 
-            pwd
-            chmod +r /home/wap-admin/docker/mearn/frontend.tar
-            chmod +r /home/wap-admin/docker/mearn/backend.tar
-            chmod +r /home/wap-admin/docker/mearn/appew.tar
+          pwd
+          chmod +r /home/wap-admin/docker/mearn/frontend.tar
+          chmod +r /home/wap-admin/docker/mearn/backend.tar
+          chmod +r /home/wap-admin/docker/mearn/appew.tar
 
   # deploy:
   #   runs-on: ubuntu-latest   
