@@ -112,10 +112,9 @@ jobs:
           # docker save -o frontend.tar ${{ secrets.DOCKER_USERNAME }}/mearn-stack_frontend:latest
           # docker save -o backend.tar ${{ secrets.DOCKER_USERNAME }}/mearn-stack_backend:latest
           docker save -o appew.tar ${{ secrets.DOCKER_USERNAME }}/mearn-stack_appew:latest
-          pwd
       
       - name: Download Docker Images Tar Archives
-        uses: appleboy/scp-action@master
+        uses: appleboy/scp-action@v0.1.3
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME_ROOT }}
