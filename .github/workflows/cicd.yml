@@ -132,7 +132,7 @@ jobs:
           
           script: |
 
-            chmod o+r /home/wap-admin/docker/mearn/frontend.tar /home/wap-admin/docker/mearn/backend.tar /home/wap-admin/docker/mearn/appew.tar
+            chmod u+r /home/wap-admin/docker/mearn/frontend.tar /home/wap-admin/docker/mearn/backend.tar /home/wap-admin/docker/mearn/appew.tar
             # chmod +r /home/wap-admin/docker/mearn/backend.tar
             # chmod +r /home/wap-admin/docker/mearn/appew.tar
 
