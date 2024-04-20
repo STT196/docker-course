@@ -39,11 +39,21 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
           port: ${{ secrets.SERVER_PORT }}
+          # script: |
+          #   docker tag frontend:latest ${{ secrets.SERVER_HOST }}/frontend:latest
+          #   docker tag backend:latest ${{ secrets.SERVER_HOST }}/backend:latest
+          #   docker push ${{ secrets.SERVER_HOST }}/frontend:latest
+          #   docker push ${{ secrets.SERVER_HOST }}/backend:latest
           script: |
-            docker tag frontend:latest ${{ secrets.SERVER_HOST }}/frontend:latest
-            docker tag backend:latest ${{ secrets.SERVER_HOST }}/backend:latest
-            docker push ${{ secrets.SERVER_HOST }}/frontend:latest
-            docker push ${{ secrets.SERVER_HOST }}/backend:latest
+                if ! docker images frontend:latest | grep -q frontend; then
+                  docker tag frontend:latest ${{ secrets.SERVER_HOST }}/frontend:latest
+                  docker push ${{ secrets.SERVER_HOST }}/frontend:latest
+                fi
+                if ! docker images backend:latest | grep -q backend; then
+                  docker tag backend:latest ${{ secrets.SERVER_HOST }}/backend:latest
+                  docker push ${{ secrets.SERVER_HOST }}/backend:latest
+                fi
+
 
 # name: My Workflow
 
