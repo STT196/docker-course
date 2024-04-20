@@ -54,10 +54,10 @@ jobs:
               password: ${{ secrets.DOCKER_PASSWORD }}
           
           - name: Pull Frontend Docker Image
-            run: docker pull stt96/mearn-stack_frontend:latest
+            run: sudo docker pull stt96/mearn-stack_frontend:latest
           
           - name: Pull Backend Docker Image
-            run: docker pull stt96/mearn-stack_backend:latest
+            run: sudo docker pull stt96/mearn-stack_backend:latest
 
           # - name: Delete Old Backend Docker Image
           #   run: docker pull mearn-stack_backend-container
@@ -66,8 +66,8 @@ jobs:
           #   run: docker rm -f mearn-stack_frontend-container  
           
           - name: Deploy Frontend Docker Image
-            run: docker run -d -p 3000:3000 ${{ secrets.DOCKER_USERNAME }}/mearn-stack_frontend
+            run: sudo docker run -d -p 3000:3000 stt96/mearn-stack_frontend:latest
           
           - name: Deploy Backend Docker Image
-            run: docker run -d -p 5000:5000 ${{ secrets.DOCKER_USERNAME }}/mearn-stack_backend
+            run: sudo docker run -d -p 5000:5000 stt96/mearn-stack_backend:latest
         
