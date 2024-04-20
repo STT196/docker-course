@@ -120,7 +120,7 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME_ROOT }}
           key: ${{ secrets.SSH_PRIVATE_KEY_ROOT }}
           source: appew.tar
-          target: /home/wap-admin/docker/mearn/
+          target: /home/wap-admin/docker/mearn/appew.tar
       # - name: Run sshpass commands
       #   uses: matheusvanzan/sshpass-action@v2
       #   with:
