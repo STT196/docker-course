@@ -1,5 +1,7 @@
 FROM node:20-alpine3.18
 
+RUN apk add --no-cache bash
+
 RUN addgroup app && adduser -S -G app app
 
 USER app
