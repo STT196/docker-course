@@ -112,7 +112,15 @@ jobs:
           docker save -o frontend.tar ${{ secrets.DOCKER_USERNAME }}/mearn-stack_frontend:latest
           docker save -o backend.tar ${{ secrets.DOCKER_USERNAME }}/mearn-stack_backend:latest
           docker save -o appew.tar ${{ secrets.DOCKER_USERNAME }}/mearn-stack_appew:latest
-     
+
+      - name: Download Docker Images Tar Archives
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.SERVER_HOST }}
+        username: ${{ secrets.SERVER_USERNAME_ROOT }}
+        key: ${{ secrets.SSH_PRIVATE_KEY_ROOT }}
+        source: appew.tar
+        target: /home/wap-admin/docker/mearn/appew.tar
       # - name: Run sshpass commands
       #   uses: matheusvanzan/sshpass-action@v2
       #   with:
@@ -167,21 +175,21 @@ jobs:
   #           docker run -d -p 8000:8000 --name mearn-stack_backend ${{ secrets.DOCKER_USERNAME }}/mearn-stack_backend:latest
   #           docker run -d -p 5173:5173 --name mearn-stack_frontend ${{ secrets.DOCKER_USERNAME }}/mearn-stack_frontend:latest
 
-      - name: Copy SSH key to server
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USERNAME }}
-          key: ${{ runner.home }}/id_rsa
-          src: ${{ runner.home }}/.ssh/id_rsa.pub
-          dest: ~/.ssh/authorized_keys
+      # - name: Copy SSH key to server
+      #   uses: appleboy/scp-action@master
+      #   with:
+      #     host: ${{ secrets.SERVER_HOST }}
+      #     username: ${{ secrets.SERVER_USERNAME }}
+      #     key: ${{ runner.home }}/id_rsa
+      #     src: ${{ runner.home }}/.ssh/id_rsa.pub
+      #     dest: ~/.ssh/authorized_keys
 
-      - name: SSH into Server instance and deploy
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USERNAME }}
-          key: ${{ runner.home }}/id_rsa
-          port: ${{ secrets.SERVER_PORT }}
-          script: | 
-            echo "SSH into Server instance and deploy"
+      # - name: SSH into Server instance and deploy
+      #   uses: appleboy/ssh-action@master
+      #   with:
+      #     host: ${{ secrets.SERVER_HOST }}
+      #     username: ${{ secrets.SERVER_USERNAME }}
+      #     key: ${{ runner.home }}/id_rsa
+      #     port: ${{ secrets.SERVER_PORT }}
+      #     script: | 
+      #       echo "SSH into Server instance and deploy"
