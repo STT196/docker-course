@@ -113,6 +113,7 @@ jobs:
           # docker save -o backend.tar ${{ secrets.DOCKER_USERNAME }}/mearn-stack_backend:latest
           docker save -o appew.tar ${{ secrets.DOCKER_USERNAME }}/mearn-stack_appew:latest
           pwd
+      
       - name: Download Docker Images Tar Archives
         uses: appleboy/scp-action@master
         with:
@@ -120,7 +121,7 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME_ROOT }}
           key: ${{ secrets.SSH_PRIVATE_KEY_ROOT }}
           source: appew.tar
-          target: /home/wap-admin/docker/mearn
+          target: /tmp
       # - name: Run sshpass commands
       #   uses: matheusvanzan/sshpass-action@v2
       #   with:
