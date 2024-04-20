@@ -45,36 +45,36 @@ jobs:
             with:
                 host: ${{ secrets.SERVER_HOST }}
                 username: ${{ secrets.SERVER_USERNAME }}
-                key: ${{ secrets.SSH_PRIVATE_KEY }}
+                password: ${{ secrets.SERVER_PASSWORD }}
+                port: ${{ secrets.SERVER_PORT }}
                 
-                # script: |
-                #   sudo docker pull ${{ secrets.DOCKER_USERNAME }}/blog-application:client-${{github.run_number}}
-                #   sudo docker pull ${{ secrets.DOCKER_USERNAME }}/blog-application:api-${{github.run_number}}
-                #   sudo docker stop my-node-app || true
-                #   sudo docker rm my-node-app || true
-                #   sudo docker stop my-node-app-api || true
-                #   sudo docker rm my-node-app-api || true
-                #   sudo docker run -d -p 5000:5000 stt96/mearn-stack_backend:latest
-                #   docker run -d -p 3000:3000 stt96/mearn-stack_frontend:latest
-                #   sudo docker run -d -p 3000:3000 --name my-node-app-api ${{ secrets.DOCKER_USERNAME }}/blog-application:api-${{github.run_number}}
+                script: |
+                  sudo docker pull ${{ secrets.DOCKER_USERNAME }}/mearn-stack_frontend:latest
+                  sudo docker pull ${{ secrets.DOCKER_USERNAME }}/mearn-stack_backend:latest
+                  # sudo docker stop my-node-app || true
+                  sudo docker rm my-node-app || true
+                  # sudo docker stop my-node-app-api || true
+                  sudo docker rm my-node-app-api || true
+                  sudo docker run -d -p 5000:5000 --name mearn-stack_backend ${{ secrets.DOCKER_USERNAME }}/mearn-stack_backend:latest
+                  docker run -d -p 3000:3000 --name mearn-stack_frontend ${{ secrets.DOCKER_USERNAME }}/mearn-stack_frontend:latest
           
-          - name: Pull Frontend Docker Image
-            run: sudo docker pull stt96/mearn-stack_frontend:latest
+          # - name: Pull Frontend Docker Image
+          #   run: sudo docker pull stt96/mearn-stack_frontend:latest
           
-          - name: Pull Backend Docker Image
-            run: sudo docker pull stt96/mearn-stack_backend:latest
+          # - name: Pull Backend Docker Image
+          #   run: sudo docker pull stt96/mearn-stack_backend:latest
 
-          - name: Delete Old Backend Docker Image
-            run: docker pull mearn-stack_backend-container
+          # - name: Delete Old Backend Docker Image
+          #   run: docker pull mearn-stack_backend-container
 
-          - name: Delete Old Frontend Docker Image
-            run: docker rm -f mearn-stack_frontend-container  
+          # - name: Delete Old Frontend Docker Image
+          #   run: docker rm -f mearn-stack_frontend-container  
           
-          - name: Deploy Frontend Docker Image
-            run: sudo docker run -d -p 3000:3000 stt96/mearn-stack_frontend:latest
+          # - name: Deploy Frontend Docker Image
+          #   run: sudo docker run -d -p 3000:3000 stt96/mearn-stack_frontend:latest
           
-          - name: Deploy Backend Docker Image
-            run: sudo docker run -d -p 5000:5000 stt96/mearn-stack_backend:latest
+          # - name: Deploy Backend Docker Image
+          #   run: sudo docker run -d -p 5000:5000 stt96/mearn-stack_backend:latest
 
           # Your workflow steps here
 
