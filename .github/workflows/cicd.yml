@@ -54,15 +54,16 @@ jobs:
                 port: ${{ secrets.SERVER_PORT }}
                 
                 script: |
-                  docker pull stt96/mearn-stack_frontend:latest
-                  docker pull stt96/mearn-stack_backend:latest
-                  docker pull stt96/mearn-stack_appew:latest
                   docker stop mearn-stack_frontend || true
                   docker rm -f mearn-stack_frontend || true
                   docker stop mearn-stack_backend || true
                   docker rm -f mearn-stack_backend || true
                   docker stop mearn-stack_appew || true
                   docker rm -f mearn-stack_appew || true
+                  # pull images from Docker Hub
+                  docker pull stt96/mearn-stack_frontend:latest
+                  docker pull stt96/mearn-stack_backend:latest
+                  docker pull stt96/mearn-stack_appew:latest
 
                   # docker rmi -f ${{ secrets.DOCKER_USERNAME }}/mearn-stack_frontend:latest || true
                   # docker rmi -f ${{ secrets.DOCKER_USERNAME }}/mearn-stack_backend:latest || true
