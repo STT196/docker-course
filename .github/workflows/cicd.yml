@@ -56,8 +56,8 @@ jobs:
                   # docker stop mearn-stack_backend || true
                   docker rm -f mearn-stack_backend || true
 
-                  docker rmi ${{ secrets.DOCKER_USERNAME }}/mearn-stack_frontend:latest || true
-                  docker rmi ${{ secrets.DOCKER_USERNAME }}/mearn-stack_backend:latest || true
+                  docker rmi -f ${{ secrets.DOCKER_USERNAME }}/mearn-stack_frontend:latest || true
+                  docker rmi -f ${{ secrets.DOCKER_USERNAME }}/mearn-stack_backend:latest || true
                   
                   docker run -d -p 8000:8000 --name mearn-stack_backend ${{ secrets.DOCKER_USERNAME }}/mearn-stack_backend:latest
                   docker run -d -p 5173:5173 --name mearn-stack_frontend ${{ secrets.DOCKER_USERNAME }}/mearn-stack_frontend:latest
