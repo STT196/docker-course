@@ -20,17 +20,17 @@ jobs:
     steps:
       # Your workflow steps here
 
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+      # - name: Checkout Repository
+      #   uses: actions/checkout@v2
       
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+      # - name: Set up Docker Buildx
+      #   uses: docker/setup-buildx-action@v1
       
-      - name: Build Frontend Docker Image
-        run: docker build -t yourusername/frontend:latest mern-docker/frontend
+      # - name: Build Frontend Docker Image
+      #   run: docker build -t yourusername/frontend:latest mern-docker/frontend
       
-      - name: Build Backend Docker Image
-        run: docker build -t yourusername/backend:latest mern-docker/backend
+      # - name: Build Backend Docker Image
+      #   run: docker build -t yourusername/backend:latest mern-docker/backend
       
       - name: SSH into Server and Push Docker Images
         uses: appleboy/ssh-action@master
