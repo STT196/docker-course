@@ -21,7 +21,7 @@ RUN chown -R app:app .
 # change the user back to the app user
 USER app
 
-RUN touch a.txt | echo VITE_API_URL: http://localhost:8000 >> a.txt
+RUN touch .env | echo VITE_API_URL: http://localhost:8000 >> .env
 RUN npm install
 
 
