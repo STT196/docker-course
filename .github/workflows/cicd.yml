@@ -128,9 +128,9 @@ jobs:
         with:
           pass: ${{ secrets.SERVER_PASS_ROOT }}
           run: |
-            scp -r pass: ${{ secrets.SERVER_USERNAME_ROOT }}@${{ secrets.SERVER_HOST }}:/home/wap-admin/docker/mearn appew.tar
-            scp -r pass: ${{ secrets.SERVER_USERNAME_ROOT }}@${{ secrets.SERVER_HOST }}:/home/wap-admin/docker/mearn backend.tar
-            scp -r pass: ${{ secrets.SERVER_USERNAME_ROOT }}@${{ secrets.SERVER_HOST }}:/home/wap-admin/docker/mearn frontend.tar
+            scp -r ${{ secrets.SERVER_USERNAME_ROOT }}@${{ secrets.SERVER_HOST }}:/home/wap-admin/docker/mearn appew.tar
+            scp -r ${{ secrets.SERVER_USERNAME_ROOT }}@${{ secrets.SERVER_HOST }}:/home/wap-admin/docker/mearn backend.tar
+            scp -r ${{ secrets.SERVER_USERNAME_ROOT }}@${{ secrets.SERVER_HOST }}:/home/wap-admin/docker/mearn frontend.tar
             
             # scp -r ${{ secrets.SERVER_PASSWORD_ROOT }} appew.tar ${{ secrets.SERVER_USERNAME_ROOT }}@${{ secrets.SERVER_HOST }}:/home/wap-admin/docker/mearn
   
