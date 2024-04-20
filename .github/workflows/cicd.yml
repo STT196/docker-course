@@ -115,17 +115,20 @@ jobs:
      
   
       - name: Download Docker Images Tar Archives
-          run: |
-            scp -i ${{ secrets.SERVER_PASSWORD_ROOT }} frontend.tar ${{ secrets.SERVER_USERNAME_ROOT }}@${{ secrets.SERVER_HOST }}:/home/wap-admin/docker/mearn
-            scp -i ${{ secrets.SERVER_PASSWORD_ROOT }} backend.tar ${{ secrets.SERVER_USERNAME_ROOT }}@${{ secrets.SERVER_HOST }}:/home/wap-admin/docker/mearn
-            scp -i ${{ secrets.SERVER_PASSWORD_ROOT }} appew.tar ${{ secrets.SERVER_USERNAME_ROOT }}@${{ secrets.SERVER_HOST }}:/home/wap-admin/docker/mearn
-      
+        run: |
+          scp -i ${{ secrets.SERVER_PASSWORD_ROOT }} frontend.tar ${{ secrets.SERVER_USERNAME_ROOT }}@${{ secrets.SERVER_HOST }}:/home/wap-admin/docker/mearn
+          scp -i ${{ secrets.SERVER_PASSWORD_ROOT }} backend.tar ${{ secrets.SERVER_USERNAME_ROOT }}@${{ secrets.SERVER_HOST }}:/home/wap-admin/docker/mearn
+          scp -i ${{ secrets.SERVER_PASSWORD_ROOT }} appew.tar ${{ secrets.SERVER_USERNAME_ROOT }}@${{ secrets.SERVER_HOST }}:/home/wap-admin/docker/mearn
+  
+  deploy:
+    runs-on: ubuntu-latest    
+    steps:    
       - name: SSH into Server instance and deploy
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USERNAME_ROOT }}
-          password: ${{ secrets.SERVER_PASSWORD_ROOT }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
           port: ${{ secrets.SERVER_PORT }}
           script: |
             # Run your Docker containers here
